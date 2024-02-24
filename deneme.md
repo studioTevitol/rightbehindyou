@@ -1,5 +1,1 @@
-deneme
-
-fjfutjghtoıhfjghıf
-
-sgıhefghefıoji
+feture gercek değil sana zarar veremez
