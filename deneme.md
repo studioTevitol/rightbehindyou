@@ -1,1 +1,1 @@
-feture gercek değil sana zarar veremez
+Fetch dosya çekmiyormuş(Tuna yeni öğrendi)
