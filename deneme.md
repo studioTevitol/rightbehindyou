@@ -1,0 +1,5 @@
+deneme
+
+fjfutjghtoıhfjghıf
+
+sgıhefghefıoji
