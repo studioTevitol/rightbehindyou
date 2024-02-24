@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy_AI : MonoBehaviour
 {
+    public PlayerMovement playerMovement;
+    private GameObject playerObj;
     NavMeshAgent agent;
     Collider objcollider;
     public float MaxSight = 20f;
@@ -15,6 +18,7 @@ public class Enemy_AI : MonoBehaviour
     public float radius;
     void Start()
     {
+        playerObj = playerMovement.gameObject;
         agent = GetComponent<NavMeshAgent>();
         objcollider = GetComponent<Collider>();
         radius = agent.radius;
@@ -35,6 +39,7 @@ public class Enemy_AI : MonoBehaviour
         }
         */
         agent.SetDestination(playerTransform.position);
+        
         int colliderNum = Physics.OverlapCapsuleNonAlloc(new Vector3(transform.position.x, transform.position.y - 0.67f, transform.position.z), new Vector3(transform.position.x, transform.position.y + 0.67f, transform.position.z), radius + 0.5f, checkForPlayer);
         if (colliderNum > 0)
         {
@@ -46,6 +51,7 @@ public class Enemy_AI : MonoBehaviour
                 }
             }
         }
+       
     }
     void OnCatchPlayer()
     {
