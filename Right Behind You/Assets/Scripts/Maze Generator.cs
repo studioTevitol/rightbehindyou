@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
@@ -16,19 +17,30 @@ public class MazeGenerator : MonoBehaviour
 
     private MazeCell[,] _mazeGrid;
 
+    [SerializeField]
+    private int _mazeScale;
+
+    public GameObject GroundPlane;
+    private NavMeshSurface plane;
+
     void Start()
     {
+       plane = GroundPlane.GetComponent<NavMeshSurface>();
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
 
         for (int x = 0; x < _mazeWidth; x++)
         {
             for (int z = 0; z < _mazeDepth; z++)
             {
-                _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x * _mazeScale, 0, z * _mazeScale), Quaternion.identity);
             }
         }
 
+        _mazeGrid[0, 0].ClearBackWall();
+        _mazeGrid[_mazeWidth - 1, _mazeDepth - 1].ClearFrontWall();
+
         GenerateMaze(null, _mazeGrid[0, 0]);
+        plane.BuildNavMesh();
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
@@ -58,8 +70,8 @@ public class MazeGenerator : MonoBehaviour
 
     private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell)
     {
-        int x = (int)currentCell.transform.position.x;
-        int z = (int)currentCell.transform.position.z;
+        int x = (int)currentCell.transform.position.x / _mazeScale;
+        int z = (int)currentCell.transform.position.z / _mazeScale;
 
         if (x + 1 < _mazeWidth)
         {

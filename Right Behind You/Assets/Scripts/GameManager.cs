@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,9 +10,11 @@ public class GameManager : MonoBehaviour
     public Enemy_AI enemy;
     public GameObject enemyPrefab;
     public GameObject Player;
+
     void Start()
     {
         playerObject = playerMovement.gameObject;
+
     }
 
     // Update is called once per frame
