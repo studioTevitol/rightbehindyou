@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     void SpawnEnemy ()
     {
         //Every time an enemy spawns store it in the enemy variable
-        Destroy(enemy);
+        Destroy(enemy.gameObject);
         enemy = Instantiate(enemyPrefab, entrance).GetComponent<Enemy_AI>();
     }
     
