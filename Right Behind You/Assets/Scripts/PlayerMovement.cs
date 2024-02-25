@@ -37,11 +37,16 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    //Görütü kontrolü için deðiþken
+    Collider collider;
+    RaycastHit[] hits = new RaycastHit[32];
+    public GameManager gameManager;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+        collider = GetComponent<Collider>();
         readyToJump = true;
     }
 
@@ -58,6 +63,21 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+        /*
+        // Oyuncunun Avcýyý görüp görmediðini belirleyen kod
+        int hitNum = Physics.BoxCastNonAlloc(collider.bounds.center, transform.localScale / 2, transform.forward, hits);
+        if (hitNum > 0)
+        {
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].transform.gameObject.tag=="Player")
+                {
+                    OnSeenByPlayer();
+                }
+            }
+        }
+        */
+        
     }
 
     private void FixedUpdate()
@@ -117,5 +137,10 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void OnSeenByPlayer()
+    {
+        
     }
 }
