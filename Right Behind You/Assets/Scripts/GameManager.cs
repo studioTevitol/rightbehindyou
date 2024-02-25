@@ -5,22 +5,39 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerMovement playerMovement;
-    public GameObject playerObject;
+    public GameObject player;
     public Enemy_AI enemy;
     public GameObject enemyPrefab;
-    public GameObject Player;
-
+    public Transform entrance;
+    public bool keyCollected;
+    float timesincelastmoved = 0f;
+  
     void Start()
     {
-        playerObject = playerMovement.gameObject;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Every time an enemy spawns store it in the enemy variable
-        //enemy = Instantiate(enemyPrefab).GetComponent<Enemy_AI>();
+       if (keyCollected|| timesincelastmoved > 5f)
+       {
+            SpawnEnemy();
+            timesincelastmoved = 0f;
+       }
+        if (player.GetComponent<Rigidbody>().velocity.x==0||player.GetComponent<Rigidbody>().velocity.z==0)
+       {
+            timesincelastmoved += Time.deltaTime;
+       }
+
+        
     }
+
+    void SpawnEnemy ()
+    {
+        //Every time an enemy spawns store it in the enemy variable
+        Destroy(enemy);
+        enemy = Instantiate(enemyPrefab, entrance).GetComponent<Enemy_AI>();
+    }
+    
 }
