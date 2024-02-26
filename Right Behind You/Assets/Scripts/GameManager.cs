@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
        {
             SpawnEnemy();
             timesincelastmoved = 0f;
+            keyCollected = false;
        }
         if (player.GetComponent<Rigidbody>().velocity.x==0||player.GetComponent<Rigidbody>().velocity.z==0)
        {
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
     void SpawnEnemy ()
     {
         //Every time an enemy spawns store it in the enemy variable
-        Destroy(enemy);
+        Destroy(enemy.gameObject);
         enemy = Instantiate(enemyPrefab, entrance).GetComponent<Enemy_AI>();
     }
     
