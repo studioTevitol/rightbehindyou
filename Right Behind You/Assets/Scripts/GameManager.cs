@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
        {
             SpawnEnemy();
             timesincelastmoved = 0f;
+            keyCollected = false;
        }
         if (player.GetComponent<Rigidbody>().velocity.x==0||player.GetComponent<Rigidbody>().velocity.z==0)
        {
